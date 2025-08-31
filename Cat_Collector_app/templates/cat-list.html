@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+    <h1>Cat List</h1>
+
+    {% for cat in cats %}
+        <h2>Cat Name: {{ cat.name }}</h2>
+        <h2>Cat Age: {{ cat.age }}</h2>
+        <h2>Cat Color: {{ cat.color }}</h2>
+        
+        <a href="{% url "cat-details" cat.id %}"><button>View Details</button></a>
+
+        <hr>
+    {% endfor %}
+{% endblock body %}
