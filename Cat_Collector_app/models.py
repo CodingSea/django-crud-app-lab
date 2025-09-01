@@ -4,9 +4,9 @@ from django.core.validators import MinLengthValidator
 # Create your models here.
 
 class Cat(models.Model):
-    name = models.CharField(120)
-    age = models.IntegerField(MinLengthValidator(0))
-    color = models.CharField(120)
+    name = models.CharField(max_length=120)
+    age = models.IntegerField()
+    color = models.CharField(max_length=120)
 
     class Meta:
         db_table = 'Cat'
