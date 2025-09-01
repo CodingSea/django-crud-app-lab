@@ -8,4 +8,6 @@ urlpatterns = [
    path("cat/<int:pk>", views.Cat_Details.as_view(), name="cat-details"),
    path("cat/<int:pk>/edit", views.cat_update_with_form, name="cat-update"),
    path("cat/<int:pk>/delete", views.cat_delete, name="cat-delete"),
+
+   path("auth/sign-up/", views.SignUpViews.as_view(), name="sign-up"),
 ]

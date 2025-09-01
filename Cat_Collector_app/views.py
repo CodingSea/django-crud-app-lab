@@ -2,13 +2,16 @@ from django.shortcuts import render, redirect
 from .models import Cat
 from .forms import CatForm
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def home(request):
 
     return render(request, "home.html")
 
+@login_required
 def cat_list(request):
     cats = Cat.objects.all()
     return render(request, "cat-list.html", {"cats": cats})
@@ -56,3 +59,13 @@ def cat_update_with_form(request, pk):
 def cat_delete(request, pk):
     Cat.objects.get(id=pk).delete()
     return redirect("Index")
+
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+
+class SignUpViews(CreateView):
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/sign-up.html"
+    
