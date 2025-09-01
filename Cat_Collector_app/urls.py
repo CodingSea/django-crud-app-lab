@@ -11,6 +11,7 @@ urlpatterns = [
 
    path("cat/toy/new", views.toy_create_form, name="toy-create"),
    path("cat/<int:pk>/<int:toyId>", views.toy_update_with_form, name="toy-update"),
+   path("cat/<int:pk>/<int:toyId>/delete", views.toy_delete, name="toy-delete"),
 
    path("auth/sign-up/", views.SignUpViews.as_view(), name="sign-up"),
 ]

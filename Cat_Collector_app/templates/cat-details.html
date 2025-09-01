@@ -13,6 +13,11 @@
             <li>
                 <p>{{ toy.name }}</p>
                 <a href="{% url "toy-update" pk=cat.id toyId=toy.id %}"><button>Edit</button></a>
+
+                <form action="{% url "toy-delete" pk=cat.id toyId=toy.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
             </li>
         {% endfor %}
     </ul>

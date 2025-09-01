@@ -92,6 +92,9 @@ def toy_update_with_form(request, pk, toyId):
     
     return render(request, "cat-form.html", {"form": form, "mode": "Update"})
 
+def toy_delete(request, pk, toyId):
+    toy = Toy.objects.get(id=toyId).delete()
+    return redirect(reverse_lazy("cat-details", kwargs={"pk": pk}))
 
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
