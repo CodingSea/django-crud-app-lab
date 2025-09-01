@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Cat
-from .forms import CatForm
+from .models import (Cat, Toy)
+from .forms import (CatForm, ToyForm)
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 
@@ -25,13 +25,18 @@ class Cat_Create(CreateView):
     template_name = "cat-form.html"
     success_url = reverse_lazy("Index")
 
-class Cat_Details(DetailView):
-    model = Cat
-    template_name = "cat-details.html"
-    context_object_name = "cat"
+# class Cat_Details(DetailView):
+#     model = Cat
+#     template_name = "cat-details.html"
+#     context_object_name = "cat"
 
+def Cat_Details(request, pk):
+    cat = Cat.objects.get(id=pk)
+    toys = Toy.objects.filter(cat_id = cat.id)
+    return render(request, "cat-details.html", { "cat": cat, "toys": toys })
 
 def cat_create_with_form(request):
+    print(request)
     if request.method == "POST":
         form = CatForm(request.POST)
 
@@ -55,6 +60,17 @@ def cat_update_with_form(request, pk):
         form = CatForm(instance=cat)
     
     return render(request, "cat-form.html", {"form": form, "mode": "Update"})
+
+def toy_create_form(request):
+    if request.method == "POST":
+        form = ToyForm(request.POST)
+
+        if form.is_valid():
+            toy = form.save()
+            return redirect("Index")
+
+    form = ToyForm()
+    return render(request, "toy-form.html", {"form": form})
 
 def cat_delete(request, pk):
     Cat.objects.get(id=pk).delete()

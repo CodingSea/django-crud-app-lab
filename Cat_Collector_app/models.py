@@ -5,9 +5,19 @@ from django.core.validators import MinLengthValidator
 
 class Cat(models.Model):
     name = models.CharField(max_length=120)
-    age = models.IntegerField(validators=[MinLengthValidator(0)])
+    age = models.IntegerField()
     color = models.CharField(max_length=120)
 
     class Meta:
-        db_table = 'Cat'
+        db_table = 'cat'
 
+    def __str__(self):
+        return f"{self.name}"
+
+
+class Toy(models.Model):
+    name = models.CharField(max_length=120)
+    cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
+
+    class Meta:
+        db_table = 'toy'
