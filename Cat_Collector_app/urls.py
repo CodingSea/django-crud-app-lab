@@ -10,7 +10,7 @@ urlpatterns = [
    path("cat/<int:pk>/delete", views.cat_delete, name="cat-delete"),
 
    path("cat/toy/new", views.toy_create_form, name="toy-create"),
-   #path("cat/<int:pk>/<int:toyId>", views.toy_create_form, name="toy-create"),
+   path("cat/<int:pk>/<int:toyId>", views.toy_update_with_form, name="toy-update"),
 
    path("auth/sign-up/", views.SignUpViews.as_view(), name="sign-up"),
 ]

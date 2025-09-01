@@ -76,6 +76,23 @@ def cat_delete(request, pk):
     Cat.objects.get(id=pk).delete()
     return redirect("Index")
 
+
+def toy_update_with_form(request, pk, toyId):
+    cat = Cat.objects.get(id=pk)
+    toy = Toy.objects.get(id=toyId)
+
+    if request.method == "POST":
+        form = ToyForm(request.POST, instance=toy)
+
+        if form.is_valid():
+            toy = form.save()
+            return redirect(reverse_lazy("cat-details", kwargs={"pk": pk}))
+    else:
+        form = ToyForm(instance=toy)
+    
+    return render(request, "cat-form.html", {"form": form, "mode": "Update"})
+
+
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
