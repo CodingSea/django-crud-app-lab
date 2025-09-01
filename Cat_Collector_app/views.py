@@ -5,11 +5,11 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 
-def Home(request):
+def home(request):
 
     return render(request, "home.html")
 
-def Cat_List(request):
+def cat_list(request):
     cats = Cat.objects.all()
     return render(request, "cat-list.html", {"cats": cats})
 
@@ -38,3 +38,21 @@ def cat_create_with_form(request):
 
     form = CatForm()
     return render(request, "cat-form.html", {"form": form})
+
+def cat_update_with_form(request, pk):
+    cat = Cat.objects.get(id=pk)
+
+    if request.method == "POST":
+        form = CatForm(request.POST, instance=cat)
+
+        if form.is_valid():
+            cat = form.save()
+            return redirect("Index")
+    else:
+        form = CatForm(instance=cat)
+    
+    return render(request, "cat-form.html", {"form": form, "mode": "Update"})
+
+def cat_delete(request, pk):
+    Cat.objects.get(id=pk).delete()
+    return redirect("Index")

@@ -5,7 +5,7 @@ from django.core.validators import MinLengthValidator
 
 class Cat(models.Model):
     name = models.CharField(max_length=120)
-    age = models.IntegerField()
+    age = models.IntegerField(validators=[MinLengthValidator(0)])
     color = models.CharField(max_length=120)
 
     class Meta:

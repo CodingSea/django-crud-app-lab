@@ -10,6 +10,13 @@
         <h2>Cat Color: {{ cat.color }}</h2>
         
         <a href="{% url "cat-details" cat.id %}"><button>View Details</button></a>
+        <a href="{% url "cat-update" cat.id %}"><button>Edit</button></a>
+
+        <form action="{% url "cat-delete" cat.id %}" method="POST">
+            {% csrf_token %}
+
+            <button type="submit">Delete</button>
+        </form>
 
         <hr>
     {% endfor %}

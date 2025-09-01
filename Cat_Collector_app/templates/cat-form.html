@@ -2,16 +2,16 @@
 
 {% block body %}
     {% if cat %}
-    
+    <h1>Edit Cat</h1>
     {% else %}
         <h1>Create Cat</h1>
-
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-
-            <button type="submit">Create Cat</button>
-        </form>
     {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
 
 {% endblock body %}
